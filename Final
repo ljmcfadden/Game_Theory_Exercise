@@ -1,0 +1,274 @@
+# Author: Lucas McFadden
+# Game Theory Assignment
+
+
+# Importing random package
+import random
+
+# Asking user if they would like to play 
+user_opt = input("""Would you like to play this Game Theory Situation against Python? Please type "yes" or "no". """).lower()
+
+# User options based on their response
+if "yes" in user_opt:
+    user_name = input("Welcome to the game! You will be playing against Python. What is your name? ").capitalize()
+elif "no" in user_opt:
+    print("You will be watching two Python players play against each other.")
+else:
+    print("Invalid response. Please try again.")
+
+
+# Seperator
+if "yes" in user_opt:
+    print("*"*117)
+elif "no" in user_opt:
+    print("*"*117)
+else:
+    print()
+
+
+# Description of Game Theory Situation Prologue
+if "yes" in user_opt:
+    print("""
+You and I are outlaws in the Wild Wild West. We plan to steal from the Town Bank in hopes to fund our crew's purchase 
+of weapons to fight the injustices of the Sheriff against our people. You are feeling a bit apprehensive about the 
+heist because the man who planned it is new to our crew and you feel as though he has not proven himself worthy of 
+being one of us yet. I convince you that he is trustworthy and we proceed with the heist.
+          """)
+elif "no" in user_opt:
+    print("""
+The two Python players are outlaws in the Wild Wild West. They plan to steal from the Town Bank in hopes 
+to fund their crew's purchase of weapons to fight the injustices of the Sheriff against their people. Python 
+is feeling a bit apprehensive about the heist because the man who planned it is new to the crew and they feel as 
+though he has not proven himself worthy of being one of them yet. Other Player convinces them that he is 
+trustworthy and they proceed with the heist.
+          """)
+else:
+    print()
+
+# Seperator
+if "yes" in user_opt:
+    print("*"*117)
+elif "no" in user_opt:
+    print("*"*117)
+else:
+    print()
+
+
+# Description of Prisoner's Dilemma
+if "yes" in user_opt:
+    print(f"""\n
+{user_name}, we were caught! The new guy was a snitch! He ratted us out for a shortened parole sentence! Do not 
+confess, we need to have each others backs!
+          """)
+elif "no" in user_opt:
+    print("""\n
+Oh no, they were caught! The new guy was a snitch! He ratted them out for a shortened parole sentence! Do not 
+confess, we need to have each others backs!
+          """)
+else:
+    print()
+
+if "yes" in user_opt:
+    print("""
+You are alone in a cell at the Town Prison. There is nobody to communicate with as you are the only prisoner
+being held here. You hear footsteps approaching you and turn to see the Sheriff emerge from the shadows. He 
+pulls up a chair, sits, and says:
+          """)
+elif "no" in user_opt:
+    print("""
+You are alone in a cell at the Town Prison. There is nobody to communicate with as you are the only prisoner
+being held here. You hear footsteps approaching you and turn to see the Sheriff emerge from the shadows. He 
+pulls up a chair, sits, and says:
+          """)
+else:
+    print()
+
+# Board Game
+if "yes" in user_opt:
+    print(f"""
+{user_name}, {user_name}, {user_name}... Why am I not surprised it's you? I made sure your accomplice was taken to 
+another location to avoid any conspiration. Here's the situation, and listen closely, because what you say will 
+heavily impact what happens to you moving forward:
+\n
+{user_name} \ Python\t\t Stay Silent \t\t\t\t Snitch
+--------------\t ----------------------------\t\t ----------------------------
+Stay Silent\t Both gets 2 years\t\t\t {user_name} gets 10 years, Python Free 
+Snitch \t\t {user_name} Free, Python 10\t\t\t 20 years both
+      """)
+elif "no" in user_opt:
+    print("""
+Why am I not surprised it's you? I made sure your accomplice was taken to another location to avoid 
+any conspiration. Here's the situation, and listen closely, because what you say will heavily impact 
+what happens to you moving forward:
+\n
+Python \ Other Player\t\t Stay Silent \t\t\t\t\t\t Snitch
+--------------------\t ----------------------------------\t\t ---------------------------------
+Stay Silent\t\t Both gets 2 years\t\t\t\t Python gets 10 years, Other Player Free 
+Snitch \t\t\t Python Free, Other Player 10\t\t\t 20 years both
+      """)
+else:
+    print()
+    
+# Construct the boardgame with the player point matrix
+board_game = [[3, 1], [5, 0]]
+
+# Create and save board points with their corresponding results. R: Remain Silent, S: Snitch
+dictionary_results = {"(R, R)": (board_game[0][0], board_game[0][0]), 
+                      "(R, S)": (board_game[0][1], board_game[1][0]), 
+                      "(S, R)": (board_game[1][0], board_game[0][1]), 
+                      "(S, S)": (board_game[1][1], board_game[1][1])}
+
+# Ask user what they would like to do
+if "yes" in user_opt:
+    user_choice = input("""
+Make your choice. Will you remain silent or snitch on your accomplice?
+Type:
+"R" to Remain Silent
+"S" to Snitch
+                        """).upper()
+elif "no" in user_opt:
+    print("""
+The Python players will choose their fate. Will they remain silent or snitch?
+"R" to Remain Silent
+"S" to Snitch
+          """)
+else:
+    print()
+
+
+# Conditional structure with different outputs based on player choices
+if "yes" in user_opt:
+    if user_choice == "R" and python_choice == 0:
+        user_result = dictionary_results["(R, R)"][0]
+        python_result = dictionary_results["(R, R)"][1]
+        print(f"""
+        We both remained silent! Thanks for having my back!
+        You earned {user_result} points.
+        I earned {python_result} points.
+               """)
+    elif user_choice == "S" and python_choice == 0:
+        user_result = dictionary_results["(S, R)"][0]
+        python_result = dictionary_results["(S, R)"][1]
+        print(f"""
+        You have chosen to snitch. I chose to remain silent!
+        You earned {user_result} points.
+        I earned {python_result} points.
+               """)
+    elif user_choice == "R" and python_choice == 1:
+        user_result = dictionary_results["(R, S)"][0]
+        python_result = dictionary_results["(R, S)"][1]
+        print(f"""
+        You have chosen to remain silent. I snitched!
+        You earned {user_result} points.
+        I earned {python_result} points.
+               """)
+    elif user_choice == "S" and python_choice == 1:
+        user_result = dictionary_results["(S, S)"][0]
+        python_result = dictionary_results["(S, S)"][1]
+        print(f"""
+        We both snitched! We're both going to jail!
+        You earned {user_result} points.
+        I earned {python_result} points.
+               """)
+    else:
+        print("Invalid response. Please try again")
+        
+elif "no" in user_opt:
+    def sim():
+        # Python randomly chooses to either remain silent or snitch
+        python_choice = random.randint(0, 1) # 0: Remain Silent, 1: Snitch
+
+        choices = "R", "S" # R: Remain Silent, S: Snitch
+        other_player_choice = random.choice(choices)
+    
+        if other_player_choice == "R" and python_choice == 0:
+            other_player_result = dictionary_results["(R, R)"][0]
+            python_result = dictionary_results["(R, R)"][1]
+            print(f"""\n\n\n\n\n
+            They both remianed silent! They had each others' back!
+            Other Player earned {other_player_result} points.
+            Python earned {python_result} points.
+                   """)
+        elif other_player_choice == "S" and python_choice == 0:
+            other_player_result = dictionary_results["(S, R)"][0]
+            python_result = dictionary_results["(S, R)"][1]
+            print(f"""\n\n\n\n\n
+            Other Player has chosen to snitch. Python chose to remain silent!
+            Other Player earned {other_player_result} points.
+            Python earned {python_result} points.
+                   """)
+        elif other_player_choice == "R" and python_choice == 1:
+            other_player_result = dictionary_results["(R, S)"][0]
+            python_result = dictionary_results["(R, S)"][1]
+            print(f"""\n\n\n\n\n
+            Other Player has chosen to remain silent. Python snitched!
+            Other Player earned {other_player_result} points.
+            Python earned {python_result} points.
+                  """)
+        elif other_player_choice == "S" and python_choice == 1:
+            other_player_result = dictionary_results["(S, S)"][0]
+            python_result = dictionary_results["(S, S)"][1]
+            print(f"""\n\n\n\n\n
+            They both snitched! They're both going to jail!
+            Other Player earned {other_player_result} points.
+            Python earned {python_result} points.
+                       """)
+        # Return results to use as variables
+        return other_player_result, python_result
+    
+    # Blank table for each variable so that points can be added
+    other_player_wins = 0
+    python_wins = 0
+    ties = 0
+        
+    # Simulate 5 games between Python and Other Player
+    for sim_number in range(1, 6):
+        other_player_result, python_result = sim()
+        print(f"Round {sim_number}:\t"), result
+        
+        if other_player_result > python_result:
+            other_player_wins += 1
+        elif other_player_result < python_result:
+            python_wins += 1
+        elif other_player_result == python_result:
+            ties += 1
+            
+        if other_player_result > python_result:
+            print(f"""\t\t\tOther Player wins!""")
+        elif other_player_result == python_result:
+            print(f"""\t\t\tThey tied!""")
+        elif other_player_result < python_result:
+            print(f"""\t\t\tPython wins!""")
+            
+    if other_player_wins > python_wins:
+        print(f"\n\n\t\t\tOther Player is the overall winner with {other_player_wins} wins!")
+    elif other_player_wins < python_wins:
+        print(f"\n\n\t\t\t\tPython is the overall winner with {python_wins} wins!")
+    else:
+        print(f"\n\n\t\t\t\t\tIt's a tie with {ties} ties!")
+
+
+        
+    
+else:
+    print()
+    
+# Declaring a winner
+if "yes" in user_opt:
+    if user_choice == "R":
+        if user_result > python_result:
+            print(f"""Congrats {user_name}, you won!""")
+        elif user_result == python_result:
+            print(f"""We tied!""")
+        elif user_result < python_result:
+            print(f"""Congrats to me, I beat you!""")
+    elif user_choice == "S":
+        if user_result > python_result:
+            print(f"""Congrats {user_name}, you won!""")
+        elif user_result == python_result:
+            print(f"""We tied!""")
+        elif user_result < python_result:
+            print(f"""Congrats to me, I beat you!""")
+    else:
+        print()
+
